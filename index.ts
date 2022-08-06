@@ -4,6 +4,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import { json } from "body-parser";
 import { foodsRouter } from "./src/routes/foods";
+import mongoose, { ConnectOptions } from "mongoose"
 
 dotenv.config()
 
@@ -13,11 +14,10 @@ const port = process.env.PORT || 3000;
 app.use(json());
 app.use(foodsRouter)
 
-app.get("/", (req: Request, res: Response) => { 
-    res.send("Starting server...");
-})
-
-
-app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-})
+console.log("Starting server...");
+mongoose.connect(process.env.MONGODB_URI!, { 
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+} as ConnectOptions)
+.then(() => app.listen(port, () => console.log(`Server runnning on: http://localhost:${port}`)))
+.catch((error) => console.log(error.message))
