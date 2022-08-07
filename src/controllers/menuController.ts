@@ -22,7 +22,6 @@ export const createMenu = async (req: Request, res: Response) => {
             await menu.save()
             res.status(201).send(menu)
         }
-        res.status(400).send("Body Not Found")
     }
     catch (error: any) {
         res.status(400).send(error.message)

@@ -6,6 +6,7 @@ import { json } from "body-parser";
 import mongoose, { ConnectOptions } from "mongoose"
 import { restaurantsRouter } from "./src/routes/restaurantsRoute";
 import { menuRouter } from "./src/routes/menuRoute";
+import { orderRouter } from "./src/routes/orderRoute";
 
 dotenv.config()
 
@@ -15,6 +16,7 @@ const port = process.env.PORT || 3000;
 app.use(json());
 app.use("/restaurant", restaurantsRouter)
 app.use("/menu", menuRouter)
+app.use("/order", orderRouter)
 
 console.log("Starting server...");
 mongoose.connect(process.env.MONGODB_URI!, { 
