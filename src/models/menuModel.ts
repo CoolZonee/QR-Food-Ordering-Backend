@@ -24,6 +24,7 @@ const menuSchema = new mongoose.Schema<IMenu>({
     restaurant: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
+        unique: true,
     },
     food: {
         code: {
