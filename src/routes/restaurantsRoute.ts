@@ -1,18 +1,27 @@
 import express from "express"
-import Restaurant from "../models/restaurantModal"
+import Restaurant, { IRestaurant } from "../models/restaurantModel"
 
 const router = express.Router()
 
-router.get("/api/restaurant", async (req, res) => {
-    console.log("Getting all restaurants")
-    const restaurants = await Restaurant.find()
-    res.status(200).send(restaurants)
+router.get("/", async (req, res) => {
+    try {
+        const restaurants: Array<IRestaurant> = await Restaurant.find()
+        restaurants.length > 0 ? res.status(200).send(restaurants) : res.status(404).send("Restaurants not found")
+    }
+    catch (error: any) {
+        res.status(400).send(error.message)
+    }
 })
 
-router.post("/api/restaurant", async (req, res) => {
-    const restaurant = new Restaurant(req.body)
-    await restaurant.save()
-    res.status(201).send(restaurant)
+router.post("/", async (req, res) => {
+    try {
+        const restaurant = new Restaurant(req.body)
+        await restaurant.save()
+        res.status(201).send(restaurant)
+    }
+    catch (error: any) {
+        res.status(400).send(error.message)
+    }
 })
 
 export { router as restaurantsRouter }

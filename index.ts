@@ -1,19 +1,20 @@
 "use strict";
 
-import express, { Express, Request, Response } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import { json } from "body-parser";
-import { foodsRouter } from "./src/routes/foods";
 import mongoose, { ConnectOptions } from "mongoose"
 import { restaurantsRouter } from "./src/routes/restaurantsRoute";
+import { menuRouter } from "./src/routes/menuRoute";
 
 dotenv.config()
 
-const app: Express = express();
+const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(json());
-app.use(restaurantsRouter)
+app.use("/restaurant", restaurantsRouter)
+app.use("/menu", menuRouter)
 
 console.log("Starting server...");
 mongoose.connect(process.env.MONGODB_URI!, { 

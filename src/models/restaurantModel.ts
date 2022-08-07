@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-interface IRestaurant {
+export interface IRestaurant {
     name: string;
     type: string;
     phone_num: string;
